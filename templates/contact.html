@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+        <!-- Contact Start -->
+        <div class="contact">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="contact-form">
+                            <form method="post">{% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        {{ form.full_name }}
+                                        <!-- <input type="text" class="form-control" placeholder="Your Name" /> -->
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        {{ form.email }}
+                                        <!-- <input type="email" class="form-control" placeholder="Your Email" /> -->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form.subject }}
+                                    <!-- <input type="text" class="form-control" placeholder="Subject" /> -->
+                                </div>
+                                <div class="form-group">
+                                    {{ form.message }}
+                                    <!-- <textarea class="form-control" rows="5" placeholder="Message"></textarea> -->
+                                </div>
+                                <div><input class="btn btn-primary" type="submit" value="Send Message"></div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contact-info">
+                            <h3>Get in Touch</h3>
+                            <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done.</p>
+                            <h4><i class="fa fa-map-marker"></i>108 Amir Temur shoh ko'chasi, Yunusobod, Tashkent, Uzbekistan</h4>
+                            <h4><i class="fa fa-envelope"></i>norqulovramazon9@gmail.com</h4>
+                            <h4><i class="fa fa-phone"></i>+998 88 640 80 40</h4>
+                            <div class="social">
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-facebook-f"></i></a>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href=""><i class="fab fa-instagram"></i></a>
+                                <a href=""><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contact End -->
+        
+{% endblock content %}

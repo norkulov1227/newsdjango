@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+        <!-- Top News Start-->
+        <div class="top-news">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 tn-left">
+                        <div class="row tn-slider">
+                            {% for new in latest_news %}
+                                {% if forloop.counter < 3 %}
+                                    <div class="col-md-6">
+                                        <div class="tn-img">
+                                            {% if new.image %}
+                                                <img src="{{ new.image.url }}" width="540" height="344" alt="{{ new.title }}" />
+                                            {% endif %}
+                                            <div class="tn-title">
+                                                <a href="{% url 'news:new-detail' new.slug %}">{{ new.title|slice:55 }}...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}          
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6 tn-right">
+                        <div class="row">
+                            {% for r_news in latest_news %}
+                                {% if forloop.counter > 2 %}
+                                    <div class="col-md-6">
+                                        <div class="tn-img">
+                                        {% if r_news.image %}
+                                            <img src="{{ r_news.image.url }}" />
+                                        {% endif %}
+                                            <div class="tn-title">
+                                                <a href="{% url 'news:new-detail' r_news.slug %}">{{ r_news.title|slice:45 }}...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Top News End-->
+
+        <!-- Category News Start-->
+        <div class="cat-news">
+            <div class="container">
+                <div class="row">
+                    {% for category in categories %}                    
+                        <div class="col-md-6">
+                            <h2>{{ category.name }}</h2>
+                            <div class="row cn-slider">
+                                {% for cat_news in category.news.all %}
+                                    <div class="col-md-6">
+                                        <div class="cn-img">
+                                            {% if cat_news.image %}
+                                                <img src="{{ cat_news.image.url }}" width="255" height="162" />
+                                            {% endif %}
+                                            <div class="cn-title">
+                                                <a href="{% url 'news:new-detail' cat_news.slug %}">{{ cat_news.title|slice:45 }}...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Category News End-->
+        
+        <!-- Tab News Start-->
+        <div class="tab-news">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="nav nav-pills nav-justified">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="pill" href="#featured">Featured News</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="pill" href="#latest">Latest News</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="featured" class="container tab-pane active">
+                                {% for featured_new in most_read %}
+                                    {% if forloop.counter < 4 %}
+                                        <div class="tn-news">
+                                            <div class="tn-img">
+                                                {% if featured_new.image %}
+                                                    <img src="{{ featured_new.image.url }}" />
+                                                {% endif %}
+                                            </div>
+                                            <div class="tn-title">
+                                                <a href="">{{ featured_new.title|slice:50 }}...</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}                                
+                            </div>
+                            <div id="latest" class="container tab-pane fade">
+                                {% for latest_new in latest_news %}
+                                    {% if forloop.counter < 4 %}
+                                        <div class="tn-news">
+                                            <div class="tn-img">
+                                            {% if latest_new.image %}
+                                                <img src="{{ latest_new.image.url }}" />
+                                            {% endif %}
+                                            </div>
+                                            <div class="tn-title">
+                                                <a href="">{{ latest_new.title|slice:50 }}...</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <ul class="nav nav-pills nav-justified">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="pill" href="#m-viewed">Most Viewed</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="pill" href="#m-recent">Most Recent</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="m-viewed" class="container tab-pane active">
+                                {% for read_new in most_read %}
+                                    {% if forloop.counter < 4 %}
+                                        <div class="tn-news">
+                                            <div class="tn-img">
+                                                {% if read_new.image %}
+                                                    <img src="{{ read_new.image.url }}" />
+                                                {% endif %}
+                                            </div>
+                                            <div class="tn-title">
+                                                <a href="">{{ read_new.title|slice:50 }}...</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div id="m-recent" class="container tab-pane fade">
+                                {% for recent_new in latest_news %}
+                                    {% if forloop.counter < 4 %}
+                                        <div class="tn-news">
+                                            <div class="tn-img">
+                                                {% if recent_new.image %}
+                                                <img src="{{ recent_new.image.url }}" />
+                                                {% endif %}
+                                            </div>
+                                            <div class="tn-title">
+                                                <a href="">{{ recent_new.title|slice:50 }}...</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Tab News Start-->
+
+        <!-- Main News Start-->
+        <div class="main-news">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="row">
+                            {% for rand_new in rand_news %}
+                                <div class="col-md-4">
+                                    <div class="mn-img">
+                                    {% if rand_new.image %}
+                                        <img src="{{ rand_new.image.url }}" width="255" height="162"/>
+                                    {% endif %}
+                                        <div class="mn-title">
+                                            <a href="{% url 'news:new-detail' rand_new.slug %}">{{ rand_new.title|slice:35 }}...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="mn-list">
+                            <h2>Read More</h2>
+                            <ul>
+                            {% for most_read in most_read %}                            
+                                <li><a href="{% url 'news:new-detail' most_read.slug %}">{{most_read.title|slice:100}}...</a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main News End-->
+
+
+{% endblock content %}       

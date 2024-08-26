@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- Main News Start-->
+    <br><br>
+    <div style="text-align: center;">
+        <h1>{{ category }}</h1> 
+    </div>
+        <div class="main-news">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="row">
+                            {% for new in news %}
+                                {% if category == new.category %}
+                                    <div class="col-md-4">
+                                        <div class="mn-img">
+                                        {% if new.image %}
+                                            <img src="{{ new.image.url }}" width="255" height="162"/>
+                                        {% endif %}
+                                            <div class="mn-title">
+                                                <a href="{% url 'news:new-detail' new.slug %}">{{ new.title|slice:35 }}...</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main News End-->
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- Category News Start-->
+        <br>
+        <div class="cat-news">
+            <div class="container">
+                <div class="row">
+                    {% for category in categories %}                    
+                        {% if category.news.all %}
+                        <div class="col-md-6">
+                            <h2>{{ category.name }}</h2>
+                            <div class="row cn-slider">
+                                {% for cat_news in category.news.all %}
+                                    <div class="col-md-6">
+                                        <div class="cn-img">
+                                            {% if cat_news.image %}
+                                                <img src="{{ cat_news.image.url }}" width="255" height="162" />
+                                            {% endif %}
+                                            <div class="cn-title">
+                                                <a href="{% url 'news:new-detail' cat_news.slug %}">{{ cat_news.title|slice:45 }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Category News End-->
+{% endblock content %}
